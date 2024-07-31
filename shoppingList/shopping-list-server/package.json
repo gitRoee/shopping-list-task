@@ -6,7 +6,8 @@
   "scripts": {
     "dev": "nodemon src/index.ts",
     "gen-mig": "npx drizzle-kit generate",
-    "migrate": "npx drizzle-kit migrate"
+    "migrate": "npx drizzle-kit migrate",
+    "seed": "npx tsx .\src\seed.ts"
   },
   "keywords": [],
   "author": "",
