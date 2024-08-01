@@ -10,7 +10,7 @@ export class ShoppingListConnectionController {
 
     public async addShoppingList (shoppingList: itemsByCategory) {
         if (Object.keys(shoppingList).length > 0) {
-        return this.#shoppingListConnectionService.addShoppingList(shoppingList);
+            return this.#shoppingListConnectionService.addShoppingList(shoppingList);
         } else {
             throw Error("List is empty")
         }
