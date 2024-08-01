@@ -10,15 +10,15 @@ export class ShoppingListConnectionService {
             const cartId = newCart[0].insertedId;
     
             for (const key of Object.keys(shoppingList)) {
-              const itemsWithCategory = shoppingList[key];
+              const itemsByCategory = shoppingList[key];
 
-              const category = await tx.select({categoryId: categories.id}).from(categories).where(eq(categories.id, itemsWithCategory.id));
+              const category = await tx.select({categoryId: categories.id}).from(categories).where(eq(categories.id, itemsByCategory.id));
     
               if (!category.length) {
-                throw Error(`Category id ${itemsWithCategory} does not exist`);
+                throw Error(`Category id ${itemsByCategory} does not exist`);
               }
     
-              for (const item of itemsWithCategory.items) {
+              for (const item of itemsByCategory.items) {
                 let itemRecord = await tx.select({itemId: items.id}).from(items).where(eq(items.name, item.name));
                 
                 if (!itemRecord.length) {
@@ -28,7 +28,7 @@ export class ShoppingListConnectionService {
                 await tx.insert(shoppingListConnection).values({
                   itemId: itemRecord[0].itemId,
                   cartId: cartId,
-                  categoryId: itemsWithCategory.id,
+                  categoryId: itemsByCategory.id,
                   quantity: item.count,
                 });
               }
